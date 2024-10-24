@@ -38,18 +38,22 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     },
-    "publish": {
-      "provider": "github",
-      "owner": "Johay90",
-      "repo": "folder-to-markdown",
-      "releaseType": "release"
-    }
+    "build": {
+  "publish": {
+    "provider": "github",
+    "owner": "Johay90",
+    "repo": "folder-to-markdown",
+    "private": false,
+    "releaseType": "release",
+    "publishAutoUpdate": false
+  }
+}
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "electron": "electron .",
-    "dist": "electron-builder --win -p always"
+    "dist": "electron-builder --win"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
