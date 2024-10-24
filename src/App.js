@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Description from './components/Description';
 import FolderSelector from './components/FolderSelector';
+import FileSelector from './components/FileSelector';
 import ResultsDisplay from './components/ResultsDisplay';
 import { CssBaseline, ThemeProvider, Box, CircularProgress } from '@mui/material';
 import theme from './theme';
 import { isTextFile, generateMarkdown } from './utils/fileProcessor';
 
 function App() {
+  const [folderStructure, setFolderStructure] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [markdown, setMarkdown] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -40,7 +43,6 @@ function App() {
       }
     }
     
-    // For directories
     if (entry.kind === 'directory') {
       const dirReader = entry.entries();
       const entries = [];
@@ -74,14 +76,36 @@ function App() {
         return entries;
       };
 
-      const folderStructure = await processDirectory(dirHandle);
-      const generatedMarkdown = generateMarkdown(folderStructure);
-      setMarkdown(generatedMarkdown);
+      const structure = await processDirectory(dirHandle);
+      setFolderStructure(structure);
+      setSelectedFiles([]); // Reset selected files
+      setMarkdown(''); // Reset markdown
     } catch (err) {
       console.error('Folder selection cancelled or failed:', err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleToggleFile = (filename, forcedState) => {
+    setSelectedFiles(prev => {
+      if (typeof forcedState === 'boolean') {
+        if (forcedState) {
+          return prev.includes(filename) ? prev : [...prev, filename];
+        } else {
+          return prev.filter(f => f !== filename);
+        }
+      } else {
+        return prev.includes(filename) 
+          ? prev.filter(f => f !== filename)
+          : [...prev, filename];
+      }
+    });
+  };
+
+  const handleGenerateMarkdown = () => {
+    const generatedMarkdown = generateMarkdown(folderStructure, selectedFiles);
+    setMarkdown(generatedMarkdown);
   };
 
   return (
@@ -99,12 +123,21 @@ function App() {
         }}
       >
         <Description />
-        <FolderSelector onSelectFolder={handleSelectFolder} />
+        {!folderStructure && <FolderSelector onSelectFolder={handleSelectFolder} />}
         
         {loading && (
           <Box sx={{ mt: 4 }}>
             <CircularProgress />
           </Box>
+        )}
+        
+        {folderStructure && !loading && !markdown && (
+          <FileSelector 
+            folderStructure={folderStructure}
+            selectedFiles={selectedFiles}
+            onToggleFile={handleToggleFile}
+            onProceed={handleGenerateMarkdown}
+          />
         )}
         
         {markdown && !loading && (
