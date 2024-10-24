@@ -15,47 +15,83 @@ export const isTextFile = (filename) => {
   
   export const generateMarkdown = (folderStructure, selectedFiles) => {
     let markdown = '# Project Structure\n\n';
+    const processedFiles = new Set(); // Keep track of processed files
     
-    const processStructure = (entries, level = 0) => {
-      // First process directories
-      entries
+    const getDirectParentPath = (filePath) => {
+      const parts = filePath.split('/');
+      return parts.length > 1 ? parts.slice(0, -1).join('/') : '';
+    };
+  
+    const processStructure = (entries, currentPath = '') => {
+      // Group entries by directories and files
+      const directories = entries
         .filter(entry => entry.kind === 'directory')
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .forEach(entry => {
-          const indentation = '  '.repeat(level);
-          markdown += `${indentation}## 📁 ${entry.name}\n\n`;
-          processStructure(entry.entries, level + 1);
-        });
+        .sort((a, b) => a.name.localeCompare(b.name));
+        
+      const files = entries
+        .filter(entry => 
+          entry.kind === 'file' && 
+          selectedFiles.includes(entry.name) &&
+          !processedFiles.has(entry.name) && // Check if file hasn't been processed
+          getDirectParentPath(entry.name) === currentPath
+        )
+        .sort((a, b) => a.name.localeCompare(b.name));
   
-      // Then process files
-      entries
-        .filter(entry => entry.kind === 'file' && selectedFiles.includes(entry.name))
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .forEach(entry => {
-          const indentation = '  '.repeat(level);
-          const displayName = entry.name.split('/').pop();
-          const isMarkdown = displayName.toLowerCase().endsWith('.md');
+      // Process directories first
+      directories.forEach(dir => {
+        const dirName = dir.name.split('/').pop();
+        markdown += `## 📁 ${dirName}\n\n`;
   
-          markdown += `${indentation}### File: \`${displayName}\`\n\n`;
+        // Process files in this directory
+        if (dir.entries) {
+          const dirFiles = dir.entries.filter(entry => 
+            entry.kind === 'file' && 
+            selectedFiles.includes(entry.name) &&
+            !processedFiles.has(entry.name) && // Check if file hasn't been processed
+            getDirectParentPath(entry.name) === dir.name
+          );
   
-          if (entry.content !== undefined) {
-            if (isMarkdown) {
-              markdown += `${indentation}> [!note]- View content\n`;
-              // Indent the content to make it part of the callout
-              const indentedContent = entry.content
-                .split('\n')
-                .map(line => `${indentation}> ${line}`)
-                .join('\n');
-              markdown += `${indentedContent}\n\n`;
-            } else {
-              markdown += `${indentation}\`\`\`${getFileExtension(displayName)}\n`;
-              markdown += entry.content;
-              markdown += `\n${indentation}\`\`\`\n\n`;
-            }
-          } else {
-            markdown += `${indentation}*Binary or unreadable file*\n\n`;
-          }
-        });
+          dirFiles.sort((a, b) => a.name.localeCompare(b.name))
+            .forEach(file => {
+              processFile(file);
+              processedFiles.add(file.name); // Mark file as processed
+            });
+  
+          // Then process subdirectories
+          processStructure(dir.entries, dir.name);
+        }
+      });
+  
+      // Process files at current level
+      files.forEach(file => {
+        processFile(file);
+        processedFiles.add(file.name); // Mark file as processed
+      });
+    };
+  
+    const processFile = (file) => {
+      const displayName = file.name.split('/').pop();
+      const isMarkdown = displayName.toLowerCase().endsWith('.md');
+  
+      markdown += `### File: \`${displayName}\`\n\n`;
+  
+      if (file.content !== undefined) {
+        if (isMarkdown) {
+          markdown += `> [!note]- View content\n`;
+          const contentLines = file.content
+            .split('\n')
+            .map(line => `> ${line}`)
+            .join('\n');
+          markdown += `${contentLines}\n\n`;
+        } else {
+          markdown += `\`\`\`${getFileExtension(displayName)}\n`;
+          markdown += file.content;
+          if (!file.content.endsWith('\n')) markdown += '\n';
+          markdown += `\`\`\`\n\n`;
+        }
+      } else {
+        markdown += `*Binary or unreadable file*\n\n`;
+      }
     };
   
     processStructure(folderStructure);
