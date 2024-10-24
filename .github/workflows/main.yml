@@ -1,15 +1,16 @@
 name: Build and Release Electron App
-
 on:
   push:
     tags:
-      - 'v*' # This will trigger the workflow only when you push a tag starting with 'v'
+      - 'v*'
 
 jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: write # Required for creating releases
+      contents: write
+      packages: write
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,8 +28,6 @@ jobs:
         run: npm run build
         
       - name: Build Electron App
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run dist
         
       - name: Create Release
@@ -41,9 +40,8 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+          token: ${{ secrets.GITHUB_TOKEN }}
+        
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
