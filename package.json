@@ -6,6 +6,47 @@
   "author": "Jonathan Mummery",
   "private": true,
   "main": "main.js",
+  "build": {
+    "extends": null,
+    "appId": "com.foldertomarkdown.app",
+    "productName": "FolderToMarkdown",
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "main.js"
+    ],
+    "extraResources": [
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Johay90",
+      "repo": "folder-to-markdown",
+      "private": false,
+      "releaseType": "release",
+      "publishAutoUpdate": false
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -28,45 +69,6 @@
   "devDependencies": {
     "electron": "^33.0.2",
     "electron-builder": "^25.1.8"
-  },
-  "extends": null,
-  "appId": "com.foldertomarkdown.app",
-  "productName": "FolderToMarkdown",
-  "files": [
-    "build/**/*",
-    "main.js"
-  ],
-  "directories": {
-    "buildResources": "assets",
-    "output": "dist"
-  },
-  "extraResources": [
-    "assets/**/*"
-  ],
-  "win": {
-    "target": [
-      {
-        "target": "nsis",
-        "arch": ["x64"]
-      }
-    ],
-    "icon": "assets/icon.ico",
-    "artifactName": "${productName}-Setup-${version}.${ext}"
-  },
-  "nsis": {
-    "oneClick": true,
-    "perMachine": false,
-    "allowToChangeInstallationDirectory": false,
-    "createDesktopShortcut": true,
-    "createStartMenuShortcut": true
-  },
-  "publish": {
-    "provider": "github",
-    "owner": "Johay90",
-    "repo": "folder-to-markdown",
-    "private": false,
-    "releaseType": "release",
-    "publishAutoUpdate": false
   },
   "browserslist": {
     "production": [
