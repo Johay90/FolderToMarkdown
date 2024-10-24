@@ -9,7 +9,7 @@ FolderToMarkdown is a powerful desktop application that transforms your project'
 - **Modern Desktop Interface**: Built with Electron and Material-UI for a native desktop experience with a clean, intuitive interface.
 
 ## Installation
-1. Go to the [Releases](https://github.com/Johay90/folder-to-markdown/releases) page
+1. Go to the [Releases](https://github.com/Johay90/FolderToMarkdown/releases) page
 2. Download the latest `FolderToMarkdown-Setup-x.x.x.exe`
 3. Run the installer
 4. Launch FolderToMarkdown from your Start Menu
@@ -25,8 +25,8 @@ This project is built using Electron, React, and Material-UI. To set up the deve
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Johay90/folder-to-markdown.git
-cd folder-to-markdown
+git clone https://github.com/Johay90/FolderToMarkdown.git
+cd FolderToMarkdown
 ```
 
 2. Install dependencies:
