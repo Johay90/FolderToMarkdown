@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# FolderToMarkdown
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+FolderToMarkdown is a powerful tool that transforms your project's folder structure into a comprehensive Markdown document. It allows you to easily visualize and document your codebase for seamless integration with platforms like Obsidian.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Folder Structure Visualization**: Automatically generates a Markdown representation of your project's folder structure, including files and subdirectories.
+- **Text File Preview**: Displays the contents of text-based files (e.g., .js, .md, .py) inline within the Markdown document.
+- **Selective Processing**: Allows you to choose which files and folders to include in the generated Markdown document.
+- **Markdown Generation**: Produces a well-formatted Markdown file that can be easily shared, stored, or imported into other applications.
+- **Responsive and Modern UI**: Utilizes Material-UI components to provide a clean, intuitive, and visually appealing user interface.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Select Folder**: Click the "SELECT FOLDER" button to choose the directory you want to document.
+2. **Select Items**: In the folder structure view, select the files and directories you want to include in the Markdown document.
+3. **Generate Markdown**: Click the "Generate Markdown" button to create the Markdown file.
+4. **Preview and Export**: Review the generated Markdown content and use the copy or download buttons to save the file.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Development
 
-### `npm test`
+This project was built using React, Material-UI, and various utility functions. The main components and their responsibilities are:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `App`: The main application component that manages the state and flow of the application.
+- `Description`: Provides a brief description and introduction to the tool.
+- `FolderSelector`: Allows the user to select a folder to document.
+- `FolderStructureSelector`: Displays the folder structure and enables the user to select files and folders.
+- `FileSelector`: Manages the selection of files to be included in the Markdown document.
+- `ResultsDisplay`: Renders the generated Markdown content and provides copy/download functionality.
+- `fileProcessor.js`: Contains utility functions for processing the folder structure and generating the Markdown output.
 
-### `npm run build`
+The project uses a custom Material-UI theme with a dark mode color scheme and various style overrides.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contributing
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the [MIT License](LICENSE).
