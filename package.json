@@ -15,21 +15,41 @@
       "main.js"   
     ],
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "assets",
+      "output": "dist"
     },
     "extraResources": [
       "assets/**/*" 
     ],
     "win": {
-      "target": "nsis", 
-      "icon": "assets/icon.ico"  
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Johay90",
+      "repo": "folder-to-markdown",
+      "releaseType": "release"
     }
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "electron": "electron .",
-    "dist": "electron-builder"  
+    "dist": "electron-builder --win -p always"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
