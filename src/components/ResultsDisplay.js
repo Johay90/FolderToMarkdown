@@ -1,22 +1,13 @@
 // src/components/ResultsDisplay.js
 import React from 'react';
-import { 
-  Paper, 
-  Typography, 
-  Button, 
-  Box, 
-  IconButton, 
-  Snackbar 
-} from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DownloadIcon from '@mui/icons-material/Download';
+import FolderIcon from '@mui/icons-material/Folder';
 
-const ResultsDisplay = ({ markdown }) => {
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-
+const ResultsDisplay = ({ markdown, onBack, onNewScan }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(markdown);
-    setSnackbarOpen(true);
   };
 
   const handleDownload = () => {
@@ -32,67 +23,60 @@ const ResultsDisplay = ({ markdown }) => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '1200px', margin: '0 auto', mt: 4 }}>
-      <Paper
-        elevation={6}
-        sx={{
-          p: 3,
-          borderRadius: 2,
-          backgroundColor: 'background.paper',
-          position: 'relative',
+    <Box 
+      sx={{ 
+        width: '100%', 
+        maxWidth: '1200px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center' // Center align all content
+      }}
+    >
+      <Stack 
+        direction="row" 
+        spacing={2} 
+        sx={{ 
+          mb: 2,
+          justifyContent: 'center' // Center align the buttons
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            mb: 2,
-          }}
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<FolderIcon />}
+          onClick={onNewScan}
         >
-          <Typography variant="h6" component="h2">
-            Generated Markdown
-          </Typography>
-          <Box>
-            <IconButton 
-              onClick={handleCopy} 
-              color="primary"
-              sx={{ mr: 1 }}
-            >
-              <ContentCopyIcon />
-            </IconButton>
-            <IconButton 
-              onClick={handleDownload} 
-              color="secondary"
-            >
-              <DownloadIcon />
-            </IconButton>
-          </Box>
-        </Box>
-        
-        <Paper
-          elevation={0}
-          sx={{
-            p: 2,
-            backgroundColor: 'rgba(0,0,0,0.2)',
-            borderRadius: 1,
-            maxHeight: '600px',
-            overflow: 'auto',
-          }}
+          Scan New Folder
+        </Button>
+        <Button
+          variant="outlined"
+          startIcon={<ContentCopyIcon />}
+          onClick={handleCopy}
         >
-          <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
-            {markdown}
-          </pre>
-        </Paper>
-      </Paper>
-      
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={2000}
-        onClose={() => setSnackbarOpen(false)}
-        message="Copied to clipboard"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      />
+          Copy to Clipboard
+        </Button>
+        <Button
+          variant="outlined"
+          startIcon={<DownloadIcon />}
+          onClick={handleDownload}
+        >
+          Download
+        </Button>
+      </Stack>
+      <Box
+        sx={{
+          backgroundColor: 'background.paper',
+          borderRadius: 1,
+          p: 2,
+          maxHeight: '70vh',
+          overflow: 'auto',
+          width: '100%' // Ensure full width for content
+        }}
+      >
+        <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+          {markdown}
+        </pre>
+      </Box>
     </Box>
   );
 };
