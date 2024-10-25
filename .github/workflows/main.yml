@@ -1,5 +1,4 @@
 name: Build and Release Electron App
-
 on:
   push:
     tags:
@@ -47,12 +46,3 @@ jobs:
           prerelease: false
           generate_release_notes: true
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: FolderToMarkdown
-          path: |
-            dist/*.exe
-            dist/latest.yml
-          if-no-files-found: error
