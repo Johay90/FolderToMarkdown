@@ -70,8 +70,18 @@ function App() {
     }
 
     if (entry.kind === "directory") {
-      // Skip common large folders in initial scan
-      const skipFolders = ["node_modules", ".git", "dist", "build", "coverage"];
+      const skipFolders = [
+        "node_modules", ".git", "dist", "build", "coverage",
+        "bin", "obj", 
+        ".vs", ".vscode", 
+        "packages", 
+        "TestResults", 
+        "artifacts", 
+        "Debug", "Release", 
+        "_ReSharper.*", 
+        ".idea", 
+        "wwwroot/lib" 
+      ];
       if (skipFolders.includes(entry.name)) {
         return {
           kind: "directory",

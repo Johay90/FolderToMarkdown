@@ -1,12 +1,17 @@
 // src/utils/fileProcessor.js
 export const isTextFile = (filename) => {
-    const textExtensions = [
-      '.txt', '.js', '.jsx', '.ts', '.tsx', '.html', '.css', '.scss', '.json', 
-      '.md', '.markdown', '.py', '.java', '.c', '.cpp', '.h', '.hpp', '.cs', 
-      '.php', '.rb', '.swift', '.kt', '.go', '.rs', '.sh', '.bash', '.yml', 
-      '.yaml', '.toml', '.ini', '.conf', '.xml', '.svg', '.vue', '.jsx', '.env',
-      '.gitignore', '.dockerignore', 'Dockerfile', '.sql', '.prisma', '.graphql',
-      '.sol', '.R', '.m', '.mm', '.scala', '.clj', '.erl', '.ex', '.exs'
+  const textExtensions = [
+    '.txt', '.js', '.jsx', '.ts', '.tsx', '.html', '.css', '.scss', '.json', 
+    '.md', '.markdown', '.py', '.java', '.c', '.cpp', '.h', '.hpp', '.cs', 
+    '.php', '.rb', '.swift', '.kt', '.go', '.rs', '.sh', '.bash', '.yml', 
+    '.yaml', '.toml', '.ini', '.conf', '.xml', '.svg', '.vue', '.jsx', '.env',
+    '.gitignore', '.dockerignore', 'Dockerfile', '.sql', '.prisma', '.graphql',
+    '.sol', '.R', '.m', '.mm', '.scala', '.clj', '.erl', '.ex', '.exs',
+    '.xaml', '.axaml', '.razor', '.cshtml', '.vbhtml', '.resx', '.settings',
+    '.config', '.csproj', '.vbproj', '.fsproj', '.dbml', '.edmx', '.sln',
+    '.props', '.targets', '.nuspec', '.manifest', '.app.manifest', '.aspx',
+    '.master', '.ascx', '.asmx', '.ashx', '.asax', '.webinfo', '.browser',
+    '.wadcfg', '.wadcfgx', '.appxmanifest', '.vsixmanifest'
     ];
     
     const ext = '.' + filename.split('.').pop().toLowerCase();

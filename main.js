@@ -7,6 +7,10 @@ function createWindow() {
     height: 600,
   });
 
+  globalShortcut.register('F12', () => {
+    mainWindow.webContents.toggleDevTools();
+  });
+
   Menu.setApplicationMenu(null);
 
   win.loadFile('build/index.html');
