@@ -5,16 +5,15 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-  });
-
-  globalShortcut.register('F12', () => {
-    mainWindow.webContents.toggleDevTools();
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      webSecurity: false
+    }
   });
 
   Menu.setApplicationMenu(null);
-
   win.loadFile('build/index.html');
-
   win.maximize();
 }
 

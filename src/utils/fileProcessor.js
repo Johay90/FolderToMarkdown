@@ -11,7 +11,7 @@ export const isTextFile = (filename) => {
     '.config', '.csproj', '.vbproj', '.fsproj', '.dbml', '.edmx', '.sln',
     '.props', '.targets', '.nuspec', '.manifest', '.app.manifest', '.aspx',
     '.master', '.ascx', '.asmx', '.ashx', '.asax', '.webinfo', '.browser',
-    '.wadcfg', '.wadcfgx', '.appxmanifest', '.vsixmanifest'
+    '.wadcfg', '.wadcfgx', '.appxmanifest', '.vsixmanifest', '.lua'
     ];
     
     const ext = '.' + filename.split('.').pop().toLowerCase();
@@ -134,7 +134,8 @@ export const isTextFile = (filename) => {
       'scss': 'scss',
       'xml': 'xml',
       'graphql': 'graphql',
-      'sol': 'solidity'
+      'sol': 'solidity',
+      'lua': 'lua'
     };
     
     return extensionMap[ext] || 'plaintext';
